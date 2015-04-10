@@ -14,7 +14,9 @@
  * limitations under the License.
  */
 
-package org.mcsoxford.rss;
+package rss;
+
+import android.util.Log;
 
 /**
  * Internal SAX handler to efficiently parse RSS feeds. Only a single thread
@@ -305,6 +307,7 @@ class RSSHandler extends org.xml.sax.helpers.DefaultHandler {
     setters.put("category", ADD_CATEGORY);
     setters.put("pubDate", SET_PUBDATE);
     setters.put("media:thumbnail", ADD_MEDIA_THUMBNAIL);
+    setters.put("media:content", ADD_MEDIA_THUMBNAIL);
     setters.put("lastBuildDate", SET_LAST_BUILE_DATE);
     setters.put("ttl", SET_TTL);
     setters.put("enclosure", SET_ENCLOSURE);

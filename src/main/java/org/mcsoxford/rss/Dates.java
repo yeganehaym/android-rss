@@ -14,10 +14,13 @@
  * limitations under the License.
  */
 
-package org.mcsoxford.rss;
+package rss;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Date;
+
+import android.util.Log;
 
 /**
  * Internal helper class for date conversions.
@@ -32,6 +35,12 @@ final class Dates {
   private static final SimpleDateFormat RFC822 = new SimpleDateFormat(
       "EEE, dd MMM yyyy HH:mm:ss Z", java.util.Locale.ENGLISH);
 
+  private static final SimpleDateFormat anotherformat = new SimpleDateFormat(
+	      "dd MMM yyyy HH:mm:ss Z", java.util.Locale.ENGLISH);
+  
+  private static final SimpleDateFormat hummanformat = new SimpleDateFormat(
+	      "yyyy-MM-dd HH:mm:ss", java.util.Locale.ENGLISH);
+  
   /* Hide constructor */
   private Dates() {}
   
@@ -41,11 +50,41 @@ final class Dates {
    * @throws RSSFault if the string is not a valid RFC 822 date/time
    */
   static java.util.Date parseRfc822(String date) {
-    try {
-      return RFC822.parse(date);
-    } catch (ParseException e) {
-      throw new RSSFault(e);
-    }
+	
+	  
+	  if(date.contains("-"))
+	  {
+		  Log.d("tag5", date);
+
+		  try {
+			 
+			  Date d= hummanformat.parse(date);
+			  Log.d("tag5", d.toString());
+			 return d;
+			  } catch (ParseException e) {
+			  throw new RSSFault(e);
+			  } //RFC822.parse(date);
+	  }
+	  if(date.matches("-?\\d+(\\.\\d+)?"))
+	  {
+		  long timeStamp=Long.parseLong(date);
+		  Log.d("tag5", (new Date((long)timeStamp*1000)).toString());
+		  return new Date((long)timeStamp*1000);
+	  }
+
+		  try {
+			 
+			  return RFC822.parse(date);
+			  } catch (ParseException e) {
+			  
+				  try {
+						 
+					  return anotherformat.parse(date);
+					  } catch (ParseException ex) {
+					  throw new RSSFault(ex);
+					  } 
+				  
+			  } 
   }
 
 }
