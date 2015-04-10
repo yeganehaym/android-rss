@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package org.mcsoxford.rss;
+package org.mcsoxford.rss; 
 
 import android.util.Log;
 
