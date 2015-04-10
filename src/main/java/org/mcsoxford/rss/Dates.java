@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package rss;
+package org.mcsoxford.rss;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
